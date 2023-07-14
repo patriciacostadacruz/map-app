@@ -8,7 +8,7 @@ import Map from './views/Map';
 
 export default function App(): ReactElement {
   return (
-    <div className="App">
+    <div className="app">
       <Navbar />
       <Routes>
         <Route path="/" element={<MainPage />} />
