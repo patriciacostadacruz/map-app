@@ -18,7 +18,7 @@ export default function Map(): ReactElement {
   return (
     <>
       <SearchBar />
-      <LoadScript googleMapsApiKey="YOUR_API_KEY">
+      <LoadScript googleMapsApiKey="AIzaSyDz2sKLFGbcNxzfHQkHqDTU7Me5Dq2tAOg">
         <GoogleMap
           mapContainerStyle={mapStyle}
           zoom={13}
