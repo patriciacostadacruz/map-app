@@ -1,3 +1,7 @@
-.App {
+.app {
   text-align: center;
+}
+
+.app-logo {
+  height: 150px;
 }
