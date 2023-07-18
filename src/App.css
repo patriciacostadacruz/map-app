@@ -1,20 +1,35 @@
+/* GLOBAL && COMMON */
+
 .app {
   text-align: center;
+}
+
+.search-button-home:hover,
+.search-button:hover,
+.history-button:hover,
+.delete-button:hover {
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /* HOME */
 
 .search-button-home {
   padding: 10px 50px;
-  background-color: rgb(114, 147, 161);
+  background-color: rgb(36, 98, 167);
   border: none;
   border-radius: 3px;
+  color: white;
 }
 
 /* NAVBAR */
 
 .app-logo {
   height: 120px;
+}
+
+.app-logo:hover {
+  cursor: pointer;
 }
 
 /* SEARCH BAR && HISTORY */
@@ -57,14 +72,24 @@
 
 .history-container ul {
   margin-left: -35px;
-}
-
-.history-container ul li {
-  list-style-type: none;
   border: 1px solid grey;
   border-radius: 3px;
   padding: 10px 25px;
   margin: 20px 0;
+  width: 85%;
+}
+
+.history-container ul li {
+  list-style-type: none;
+  margin: 20px;
+}
+
+.delete-button {
+  border: none;
+  padding: 2px 5px;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
 }
 
 /* MAP */
