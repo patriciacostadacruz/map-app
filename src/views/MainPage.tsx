@@ -4,10 +4,9 @@ import { Link } from 'react-router-dom';
 const MainPage: React.FC = (): ReactElement => {
   return (
     <div>
+      <h3>This app allows you to search for addresses inside Google Maps.</h3>
       <Link to="/map">
-        <button className="search-button-home">
-          Search for an address here
-        </button>
+        <button className="search-button-home">Start browsing</button>
       </Link>
     </div>
   );
