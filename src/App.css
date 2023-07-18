@@ -28,6 +28,10 @@
   height: 120px;
 }
 
+.app-logo:hover {
+  cursor: pointer;
+}
+
 /* SEARCH BAR && HISTORY */
 
 .search-bar-container {
