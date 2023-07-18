@@ -38,11 +38,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
           setSearchText('');
         } else {
           setErrorMessage(
-            'Geocoding API response does not contain location data.'
+            'We cannot locate this for you. Make sure to type a valid address/city.'
           );
         }
       } else {
-        setErrorMessage('Geocoding API response contains no results.');
+        setErrorMessage(
+          'We cannot retrieve this for you. Make sure to type a valid address/city.'
+        );
       }
     } catch (error) {
       setErrorMessage(
