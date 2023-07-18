@@ -8,6 +8,9 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
   const [searchText, setSearchText] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | number | boolean>(
+    ''
+  );
   const navigate = useNavigate();
 
   const handleSearchClick = async () => {
@@ -16,40 +19,46 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
         `${apiBaseLink}${encodeURIComponent(searchText)}&key=${apiKey}`
       );
       if (!response.ok) {
-        console.error('Failed to fetch geolocation data.');
+        setErrorMessage('Failed to fetch geolocation data.');
       }
       const data = await response.json();
-      console.log('Geocoding API response:', data);
       if (data.results && data.results.length > 0) {
         const location = data.results[0].geometry?.location;
         if (location) {
+          setErrorMessage('');
           onSearch(location);
           navigate('/map');
         } else {
-          console.error(
+          setErrorMessage(
             'Geocoding API response does not contain location data.'
           );
         }
       } else {
-        console.error('Geocoding API response contains no results.');
+        setErrorMessage('Geocoding API response contains no results.');
       }
     } catch (error) {
-      console.error('Error searching for the location:', error);
+      setErrorMessage(
+        'An error occured when searching for the location. Please try again.'
+      );
+      console.error('Error when searching location:', error);
     }
   };
 
   return (
     <div className="search-bar-container">
-      <input
-        className="search-bar"
-        type="text"
-        placeholder="Address or place"
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-      />
-      <button className="search-button" onClick={handleSearchClick}>
-        Search
-      </button>
+      <div className="search-bar-line">
+        <input
+          className="search-bar"
+          type="text"
+          placeholder="Type the address you're looking for here"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+        <button className="search-button" onClick={handleSearchClick}>
+          Search
+        </button>
+      </div>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };
