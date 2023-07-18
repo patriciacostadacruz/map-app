@@ -11,12 +11,11 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
   const [searchText, setSearchText] = useState('');
-  const [errorMessage, setErrorMessage] = useState<string | number | boolean>(
-    ''
-  );
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const navigate = useNavigate();
 
-  const handleSearchClick = async () => {
+  // using Promise<void> as this is gonna be an async function which does not return anything we need
+  const handleSearchClick = async (): Promise<void> => {
     if (!searchText.trim()) {
       setErrorMessage('Please type a valid address/city.');
       return;
