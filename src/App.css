@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+/* HOME */
+
+.search-button-home {
+  padding: 10px 50px;
+  background-color: rgb(114, 147, 161);
+  border: none;
+}
+
 /* NAVBAR */
 
 .app-logo {
