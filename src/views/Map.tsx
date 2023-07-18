@@ -5,15 +5,16 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { apiKey } from '../data/credentials';
 
 const Map: React.FC = (): ReactElement => {
+  const defaultLocation = { lat: 41.3851, lng: 2.1734 };
+
   const [mapCenter, setMapCenter] = useState<{
     lat: number;
     lng: number;
-  } | null>(null);
+  } | null>(defaultLocation);
   const [markerPosition, setMarkerPosition] = useState<{
     lat: number;
     lng: number;
-  } | null>(null);
-  const [searched, setSearched] = useState(false);
+  } | null>(defaultLocation);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
 
   useEffect(() => {
@@ -35,7 +36,6 @@ const Map: React.FC = (): ReactElement => {
   ) => {
     setMapCenter(location);
     setMarkerPosition(location);
-    setSearched(true);
     // prevents duplicates in history
     if (searchHistory.includes(searchString)) {
       const updatedSearchHistory = searchHistory.filter(
@@ -60,14 +60,15 @@ const Map: React.FC = (): ReactElement => {
   return (
     <>
       <SearchBar onSearch={handleSearch} />
-      {searched && mapCenter && markerPosition ? (
+      {mapCenter && markerPosition && (
         <LoadScript googleMapsApiKey={apiKey}>
           <GoogleMap mapContainerStyle={mapStyle} zoom={14} center={mapCenter}>
-            {markerPosition && <Marker position={markerPosition} />}
+            {markerPosition.lat !== defaultLocation.lat ||
+            markerPosition.lng !== defaultLocation.lng ? (
+              <Marker position={markerPosition} />
+            ) : null}
           </GoogleMap>
         </LoadScript>
-      ) : (
-        <h4>The map will show as soon as you search for an address.</h4>
       )}
       <hr />
       <SearchHistory searchHistory={searchHistory} />
