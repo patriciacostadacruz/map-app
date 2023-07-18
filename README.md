@@ -13,7 +13,7 @@ export const apiBaseLink: string =
   'desired-link';
 `
 
-PS: dotenv package has polyfill errors so this has been done a as workaround.\
+PS: dotenv package has polyfill errors so this has been done as a workaround.\
 Credentials/file will be provided to the persons who need to access the API. Otherwise you can use your own.
 
 ## Run `npm start`
