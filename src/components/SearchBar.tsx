@@ -17,6 +17,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
   const navigate = useNavigate();
 
   const handleSearchClick = async () => {
+    if (!searchText.trim()) {
+      setErrorMessage('Please type a valid address/city.');
+      return;
+    }
     try {
       const response = await fetch(
         `${apiBaseLink}${encodeURIComponent(searchText)}&key=${apiKey}`

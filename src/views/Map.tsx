@@ -35,9 +35,25 @@ const Map: React.FC = (): ReactElement => {
     setMapCenter(location);
     setMarkerPosition(location);
     setSearched(true);
-    const updatedSearchHistory = [...searchHistory, searchString];
-    setSearchHistory(updatedSearchHistory);
-    localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
+    // prevents duplicates in history
+    if (searchHistory.includes(searchString)) {
+      const updatedSearchHistory = searchHistory.filter(
+        (item) => item !== searchString
+      );
+      updatedSearchHistory.push(searchString);
+      setSearchHistory(updatedSearchHistory);
+      localStorage.setItem(
+        'searchHistory',
+        JSON.stringify(updatedSearchHistory)
+      );
+    } else {
+      const updatedSearchHistory = [...searchHistory, searchString];
+      setSearchHistory(updatedSearchHistory);
+      localStorage.setItem(
+        'searchHistory',
+        JSON.stringify(updatedSearchHistory)
+      );
+    }
   };
 
   return (
