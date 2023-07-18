@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiKey, apiBaseLink } from '../data/credentials';
 
 interface SearchBarProps {
   onSearch: (location: { lat: number; lng: number }) => void;
@@ -12,9 +13,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
   const handleSearchClick = async () => {
     try {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-          searchText
-        )}&key=AIzaSyBF_7sgUJ9Wr5EvuEu-scZRF2YgQ0v8bqk`
+        `${apiBaseLink}${encodeURIComponent(searchText)}&key=${apiKey}`
       );
       if (!response.ok) {
         console.error('Failed to fetch geolocation data.');

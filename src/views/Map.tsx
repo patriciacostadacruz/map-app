@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 import SearchBar from '../components/SearchBar';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { apiKey } from '../data/credentials';
 
 const Map: React.FC = (): ReactElement => {
   const [mapCenter, setMapCenter] = useState<{
@@ -28,7 +29,7 @@ const Map: React.FC = (): ReactElement => {
     <>
       <SearchBar onSearch={handleSearch} />
       {searched && mapCenter && markerPosition && (
-        <LoadScript googleMapsApiKey="AIzaSyBF_7sgUJ9Wr5EvuEu-scZRF2YgQ0v8bqk">
+        <LoadScript googleMapsApiKey={apiKey}>
           <GoogleMap mapContainerStyle={mapStyle} zoom={14} center={mapCenter}>
             {markerPosition && <Marker position={markerPosition} />}
           </GoogleMap>
