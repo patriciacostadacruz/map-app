@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import SearchBar from '../components/SearchBar';
+import SearchHistory from '../components/SearchHistory';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { apiKey } from '../data/credentials';
 
@@ -37,6 +38,7 @@ const Map: React.FC = (): ReactElement => {
       ) : (
         <h4>The map will show as soon as you search for an address.</h4>
       )}
+      <SearchHistory />
     </>
   );
 };
