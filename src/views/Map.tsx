@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 import SearchBar from '../components/SearchBar';
 import SearchHistory from '../components/SearchHistory';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
@@ -14,16 +14,30 @@ const Map: React.FC = (): ReactElement => {
     lng: number;
   } | null>(null);
   const [searched, setSearched] = useState(false);
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
+
+  useEffect(() => {
+    const storedSearchHistory = JSON.parse(
+      localStorage.getItem('searchHistory') || '[]'
+    );
+    setSearchHistory(storedSearchHistory);
+  }, []);
 
   const mapStyle = {
     height: '400px',
     margin: '50px',
   };
 
-  const handleSearch = async (location: { lat: number; lng: number }) => {
+  const handleSearch = async (
+    location: { lat: number; lng: number },
+    searchString: string
+  ) => {
     setMapCenter(location);
     setMarkerPosition(location);
     setSearched(true);
+    const updatedSearchHistory = [...searchHistory, searchString];
+    setSearchHistory(updatedSearchHistory);
+    localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
   };
 
   return (
@@ -38,7 +52,7 @@ const Map: React.FC = (): ReactElement => {
       ) : (
         <h4>The map will show as soon as you search for an address.</h4>
       )}
-      <SearchHistory />
+      <SearchHistory searchHistory={searchHistory} />
     </>
   );
 };
