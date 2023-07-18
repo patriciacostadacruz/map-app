@@ -1,10 +1,12 @@
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function ErrorPage(): ReactElement {
+const ErrorPage: React.FC = (): ReactElement => {
   return (
     <div>
       Oops, this page does not exist. <Link to="/">Back home</Link>
     </div>
   );
-}
+};
+
+export default ErrorPage;

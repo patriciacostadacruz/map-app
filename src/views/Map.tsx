@@ -1,31 +1,42 @@
-import { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import SearchBar from '../components/SearchBar';
-import SearchHistory from '../components/SearchHistory';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { apiKey } from '../data/credentials';
 
-export default function Map(): ReactElement {
+const Map: React.FC = (): ReactElement => {
+  const [mapCenter, setMapCenter] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
+  const [markerPosition, setMarkerPosition] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
+  const [searched, setSearched] = useState(false);
+
   const mapStyle = {
     height: '400px',
     margin: '50px',
   };
 
-  // Barcelona location
-  const center = {
-    lat: 41.3851,
-    lng: 2.1734,
+  const handleSearch = async (location: { lat: number; lng: number }) => {
+    setMapCenter(location);
+    setMarkerPosition(location);
+    setSearched(true);
   };
 
   return (
     <>
-      <SearchBar />
-      <LoadScript googleMapsApiKey="AIzaSyDz2sKLFGbcNxzfHQkHqDTU7Me5Dq2tAOg">
-        <GoogleMap
-          mapContainerStyle={mapStyle}
-          zoom={13}
-          center={center}
-        ></GoogleMap>
-      </LoadScript>
-      <SearchHistory />
+      <SearchBar onSearch={handleSearch} />
+      {searched && mapCenter && markerPosition && (
+        <LoadScript googleMapsApiKey={apiKey}>
+          <GoogleMap mapContainerStyle={mapStyle} zoom={14} center={mapCenter}>
+            {markerPosition && <Marker position={markerPosition} />}
+          </GoogleMap>
+        </LoadScript>
+      )}
     </>
   );
-}
+};
+
+export default Map;

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -6,7 +6,7 @@ import MainPage from './views/MainPage';
 import ErrorPage from './views/ErrorPage';
 import Map from './views/Map';
 
-export default function App(): ReactElement {
+const App: React.FC = (): ReactElement => {
   return (
     <div className="app">
       <Navbar />
@@ -17,4 +17,6 @@ export default function App(): ReactElement {
       </Routes>
     </div>
   );
-}
+};
+
+export default App;

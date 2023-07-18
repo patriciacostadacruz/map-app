@@ -1,9 +1,11 @@
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
-export default function SearchHistory(): ReactElement {
+const SearchHistory: React.FC = (): ReactElement => {
   return (
     <div>
       <h4>Last searched</h4>
     </div>
   );
-}
+};
+
+export default SearchHistory;
