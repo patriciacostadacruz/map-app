@@ -25,7 +25,8 @@ const Map: React.FC = (): ReactElement => {
 
   const mapStyle = {
     height: '400px',
-    margin: '50px',
+    width: '90%',
+    margin: 'auto',
   };
 
   const handleSearch = async (
@@ -35,9 +36,25 @@ const Map: React.FC = (): ReactElement => {
     setMapCenter(location);
     setMarkerPosition(location);
     setSearched(true);
-    const updatedSearchHistory = [...searchHistory, searchString];
-    setSearchHistory(updatedSearchHistory);
-    localStorage.setItem('searchHistory', JSON.stringify(updatedSearchHistory));
+    // prevents duplicates in history
+    if (searchHistory.includes(searchString)) {
+      const updatedSearchHistory = searchHistory.filter(
+        (item) => item !== searchString
+      );
+      updatedSearchHistory.push(searchString);
+      setSearchHistory(updatedSearchHistory);
+      localStorage.setItem(
+        'searchHistory',
+        JSON.stringify(updatedSearchHistory)
+      );
+    } else {
+      const updatedSearchHistory = [...searchHistory, searchString];
+      setSearchHistory(updatedSearchHistory);
+      localStorage.setItem(
+        'searchHistory',
+        JSON.stringify(updatedSearchHistory)
+      );
+    }
   };
 
   return (
@@ -52,6 +69,7 @@ const Map: React.FC = (): ReactElement => {
       ) : (
         <h4>The map will show as soon as you search for an address.</h4>
       )}
+      <hr />
       <SearchHistory searchHistory={searchHistory} />
     </>
   );

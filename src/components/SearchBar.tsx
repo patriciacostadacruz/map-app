@@ -17,6 +17,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
   const navigate = useNavigate();
 
   const handleSearchClick = async () => {
+    if (!searchText.trim()) {
+      setErrorMessage('Please type a valid address/city.');
+      return;
+    }
     try {
       const response = await fetch(
         `${apiBaseLink}${encodeURIComponent(searchText)}&key=${apiKey}`
@@ -34,11 +38,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
           setSearchText('');
         } else {
           setErrorMessage(
-            'Geocoding API response does not contain location data.'
+            'We cannot locate this for you. Make sure to type a valid address/city.'
           );
         }
       } else {
-        setErrorMessage('Geocoding API response contains no results.');
+        setErrorMessage(
+          'We cannot retrieve this for you. Make sure to type a valid address/city.'
+        );
       }
     } catch (error) {
       setErrorMessage(
