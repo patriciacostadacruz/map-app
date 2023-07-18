@@ -66,7 +66,10 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({
           displayedSearches.map(({ searchString, originalIndex }) => (
             <li key={originalIndex}>
               {capitalizeFirstLetter(searchString)}{' '}
-              <button onClick={() => handleDeleteEntry(originalIndex)}>
+              <button
+                className="delete-button"
+                onClick={() => handleDeleteEntry(originalIndex)}
+              >
                 X
               </button>
             </li>
