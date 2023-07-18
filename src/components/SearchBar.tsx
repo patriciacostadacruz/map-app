@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { apiKey, apiBaseLink } from '../data/credentials';
 
 interface SearchBarProps {
-  onSearch: (location: { lat: number; lng: number }) => void;
+  onSearch: (
+    location: { lat: number; lng: number },
+    searchString: string
+  ) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
@@ -26,8 +29,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
         const location = data.results[0].geometry?.location;
         if (location) {
           setErrorMessage('');
-          onSearch(location);
+          onSearch(location, searchText);
           navigate('/map');
+          setSearchText('');
         } else {
           setErrorMessage(
             'Geocoding API response does not contain location data.'
@@ -38,7 +42,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
       }
     } catch (error) {
       setErrorMessage(
-        'An error occured when searching for the location. Please try again.'
+        'An error occurred when searching for the location. Please try again.'
       );
       console.error('Error when searching location:', error);
     }
