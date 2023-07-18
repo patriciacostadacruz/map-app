@@ -12,7 +12,7 @@
 /build
 
 # misc
-src/data/.credentials.ts
+/src/data/credentials.ts
 .DS_Store
 .env.local
 .env.development.local
