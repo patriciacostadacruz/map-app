@@ -28,12 +28,14 @@ const Map: React.FC = (): ReactElement => {
   return (
     <>
       <SearchBar onSearch={handleSearch} />
-      {searched && mapCenter && markerPosition && (
+      {searched && mapCenter && markerPosition ? (
         <LoadScript googleMapsApiKey={apiKey}>
           <GoogleMap mapContainerStyle={mapStyle} zoom={14} center={mapCenter}>
             {markerPosition && <Marker position={markerPosition} />}
           </GoogleMap>
         </LoadScript>
+      ) : (
+        <h4>The map will show as soon as you search for an address.</h4>
       )}
     </>
   );
