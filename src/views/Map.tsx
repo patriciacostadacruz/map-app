@@ -25,7 +25,8 @@ const Map: React.FC = (): ReactElement => {
 
   const mapStyle = {
     height: '400px',
-    margin: '50px',
+    width: '90%',
+    margin: 'auto',
   };
 
   const handleSearch = async (
@@ -68,6 +69,7 @@ const Map: React.FC = (): ReactElement => {
       ) : (
         <h4>The map will show as soon as you search for an address.</h4>
       )}
+      <hr />
       <SearchHistory searchHistory={searchHistory} />
     </>
   );
