@@ -17,13 +17,6 @@ const Map: React.FC = (): ReactElement => {
   } | null>(defaultLocation);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
 
-  useEffect(() => {
-    const storedSearchHistory = JSON.parse(
-      localStorage.getItem('searchHistory') || '[]'
-    );
-    setSearchHistory(storedSearchHistory);
-  }, []);
-
   const mapStyle = {
     height: '400px',
     width: '90%',
@@ -57,6 +50,13 @@ const Map: React.FC = (): ReactElement => {
     }
   };
 
+  useEffect(() => {
+    const storedSearchHistory = JSON.parse(
+      localStorage.getItem('searchHistory') || '[]'
+    );
+    setSearchHistory(storedSearchHistory);
+  }, []);
+
   return (
     <>
       <SearchBar onSearch={handleSearch} />
@@ -71,7 +71,10 @@ const Map: React.FC = (): ReactElement => {
         </LoadScript>
       )}
       <hr />
-      <SearchHistory searchHistory={searchHistory} />
+      <SearchHistory
+        searchHistory={searchHistory}
+        updateSearchHistory={setSearchHistory}
+      />
     </>
   );
 };
