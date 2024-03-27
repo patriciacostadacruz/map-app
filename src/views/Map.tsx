@@ -2,7 +2,7 @@ import React, { ReactElement, useState, useEffect } from 'react';
 import SearchBar from '../components/SearchBar';
 import SearchHistory from '../components/SearchHistory';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { apiKey } from '../data/credentials';
+import { apiKey } from '../constants/constants';
 
 const Map: React.FC = (): ReactElement => {
   const defaultLocation = { lat: 41.3851, lng: 2.1734 };
@@ -29,7 +29,6 @@ const Map: React.FC = (): ReactElement => {
   ) => {
     setMapCenter(location);
     setMarkerPosition(location);
-    // prevents duplicates in history
     if (searchHistory.includes(searchString)) {
       const updatedSearchHistory = searchHistory.filter(
         (item) => item !== searchString

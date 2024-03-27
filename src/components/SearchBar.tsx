@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiKey, apiBaseLink } from '../data/credentials';
+import { apiBaseURL, apiKey } from '../constants/constants';
 
 interface SearchBarProps {
   onSearch: (
@@ -14,7 +14,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const navigate = useNavigate();
 
-  // using Promise<void> as this is gonna be an async function which does not return anything we need
   const handleSearchClick = async (): Promise<void> => {
     if (!searchText.trim()) {
       setErrorMessage('Please type a valid address/city.');
@@ -22,7 +21,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
     }
     try {
       const response = await fetch(
-        `${apiBaseLink}${encodeURIComponent(searchText)}&key=${apiKey}`
+        `${apiBaseURL}${encodeURIComponent(
+          searchText
+        )}&key=${apiKey}`
       );
       if (!response.ok) {
         setErrorMessage('Failed to fetch geolocation data.');
@@ -70,7 +71,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }): ReactElement => {
           placeholder="Type the address you're looking for here"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyPress}
         />
         <button className="search-button" onClick={handleSearchClick}>
           Search
