@@ -4,17 +4,7 @@ This app is done with ReactJS, TypeScript and the Google Maps API. It allows use
 
 ## Create the credentials file
 
-To get started, navigate to `src > data` folder, and run `touch credentials.ts` to create a credentials file. It must contain all the necessary variables for the app to work properly.
-
-The files should look like this:
-
-`export const apiKey: string = 'api-key';
-export const apiBaseLink: string =
-  'desired-link';
-`
-
-PS: dotenv package has polyfill errors so this has been done as a workaround.\
-Credentials/file will be provided to the persons who need to access the API. Otherwise you can use your own.
+To get started, copy the `.env.example` file and renamed it `.env`. Then, make sure to add your Google Maps API key.
 
 ## Run `npm start`
 
